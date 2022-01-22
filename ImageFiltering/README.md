@@ -2,19 +2,12 @@
 1. GCC compiler
 2. Unix bash shell environment
 
-## Installation
-In order to compile the code execute the following commands in a unix shell.
+## Compile, run and generate outputs
+In order to compile and run the code to generate the outputs, execute the following commands in a unix shell.
 
-	cd src
-	make
+	./run.sh
 
-This will compile the code with a gcc compiler and put the executable ``Example`` in the ``bin`` directory.
+This will compile the code with a gcc compiler, put the executable ``FilterImage`` in the ``bin`` directory, run the C and python scripts and generate all the outputs.
 
-## Demo
-The ``demo`` subdirectory contains a script and an image to run a very simple demo. You can run the demo with the following commands:
-
-	cd demo
-	source ./Demo.sh
-
-Then to display the plots for the qGGMRF functions, you can run the script ``PlotData.m`` in Matlab.
-
+## Lab and Report pdf
+Contains all the necessary information about the assignment and expected results.
