@@ -118,40 +118,39 @@ void ConnectedSet(struct pixel s0, double T, unsigned char **img, int width, int
 }
 
 
-void ImageSegmentation(double T, unsigned char **img, int width, int height, unsigned int **seg, int *NumConPixels)
+void ImageSegmentation(double T, unsigned char **img, int width, int height, unsigned int **seg)
 {
 	int ClassLabel = 2;
 
 	struct pixel s0;
-
-	// unsigned int **seg_tmp = (unsigned int **)get_img(width, height, sizeof(unsigned int));
+	int *NumConPixels = 0;
 
 	for(int i=0; i<height; i++)
-		for(int j=0; i<width; j++)
-			if(seg[i][j]!=0)
+		for(int j=0; j<width; j++)
+			if(seg[i][j]==0)
 			{
-				// // // Initialize seg_tmp
-				// // for(int k=0; k<height; k++)
-				// // 	for(int l=0; l<width; l++)
-				// // 		seg_tmp[k][l] = seg[k][l];
+				s0.m = i;
+				s0.n = j;
+				NumConPixels = 0;
+				// printf("%d\n\n\n", *NumConPixels);
 
-				// s0.m = i;
-				// s0.n = j;
+				ConnectedSet(s0, T, img, width, height, ClassLabel, seg, &NumConPixels);
 
-				// ConnectedSet(s0, T, img, width, height, ClassLabel, seg, NumConPixels);
+				if(NumConPixels<=100)
+				{
+					// Copy seg_tmp to seg
+					for(int k=0; k<height; k++)
+						for(int l=0; l<width; l++)
+							if(seg[k][l]==ClassLabel)
+								seg[k][l] = 1;
+				}
+				else
+				{
+					ClassLabel++;
+					printf("%d", ClassLabel);
+				}
 
-				// if(NumConPixels<=100)
-				// {
-				// 	// Copy seg_tmp to seg
-				// 	for(int k=0; k<height; k++)
-				// 		for(int l=0; l<width; l++)
-				// 			if(seg[k][l]==ClassLabel)
-				// 				seg[k][l] = 1;
-				// }
-				// else
-				// 	ClassLabel++;
-					
 
 			}
-	// free_img((void *)seg_tmp);
+
 }

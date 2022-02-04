@@ -46,11 +46,20 @@ int main (int argc, char **argv)
 
   double T = atoi(argv[5]);
   int ClassLabel = 1;
-  int *NumConPixels = 0;
+  int *NumConPixels=0;
 
   unsigned int **seg = (unsigned int **)get_img(input_img.width,
                                                   input_img.height,
                                                   sizeof(unsigned int));
+
+  /* make sure all elements are 0 */
+  for (int i = 0; i < input_img.height; i++) 
+  {
+    for (int j = 0; j < input_img.width; j++) 
+    {
+      seg[i][j] = 0;
+    }
+  }
 
   int filter_type = atoi(argv[6]);
 
@@ -60,6 +69,36 @@ int main (int argc, char **argv)
 			 3 : IIR Filter						*/
 
 	get_TIFF(&out_img, input_img.height, input_img.width, 'c');	 
+
+
+    // ClassLabel = 2;
+    // for(int i=0; i<input_img.height; i++)
+    //   for(int j=0; j<input_img.width; j++)
+    //     if(seg[i][j]==0)
+    //     {
+    //       s0.m = i;
+    //       s0.n = j;
+    //       NumConPixels = 0;
+    //       // printf("%d\n\n\n", *NumConPixels);
+
+    //       ConnectedSet(s0, T, input_img.mono, input_img.width, input_img.height, ClassLabel, seg, &NumConPixels);
+
+    //       if(NumConPixels<=100)
+    //       {
+    //         // Copy seg_tmp to seg
+    //         for(int k=0; k<input_img.height; k++)
+    //           for(int l=0; l<input_img.width; l++)
+    //             if(seg[k][l]==ClassLabel)
+    //               seg[k][l] = 1;
+    //       }
+    //       else
+    //       {
+    //         ClassLabel++;
+    //         printf("%d", ClassLabel);
+    //       }
+
+
+    //     }
 
 	switch(filter_type) {
 			 case 1 :
@@ -75,14 +114,20 @@ int main (int argc, char **argv)
 
   get_TIFF(&out_img, input_img.height, input_img.width, 'g');
 
+  // for (int i = 0; i < input_img.height; i++) {
+  //     for (int j = 0; j < input_img.width; j++) {
+  //         if (seg[i][j] == ClassLabel) {
+  //             out_img.mono[i][j] = 0;
+  //         } else {
+  //             out_img.mono[i][j] = 255;
+  //         }
+  //     }
+  // }
+
   for (int i = 0; i < input_img.height; i++) {
-      for (int j = 0; j < input_img.width; j++) {
-          if (seg[i][j] == ClassLabel) {
-              out_img.mono[i][j] = 0;
-          } else {
-              out_img.mono[i][j] = 255;
-          }
-      }
+    for (int j = 0; j < input_img.width; j++) {
+      out_img.mono[i][j] = seg[i][j];
+    }
   }
 
   free_img((void *)seg);
