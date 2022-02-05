@@ -33,9 +33,10 @@ mv img22gd2_out_0_0_3.tif ../output
 
 
 #------------------------------ Save Image Segmentation Images ------------------------------
-python3 ImageSegmentation_display.py ../output/img22gd2_out_67_45_1.tif ../output_png/img22gd2_out_67_45_1.png
-python3 ImageSegmentation_display.py ../output/img22gd2_out_67_45_2.tif ../output_png/img22gd2_out_67_45_2.png
-python3 ImageSegmentation_display.py ../output/img22gd2_out_67_45_3.tif ../output_png/img22gd2_out_67_45_3.png
+python3 tif_to_png.py ../images/img22gd2.tif ../output_png/img22gd2.png
+python3 tif_to_png.py ../output/img22gd2_out_67_45_1.tif ../output_png/img22gd2_out_67_45_1.png
+python3 tif_to_png.py ../output/img22gd2_out_67_45_2.tif ../output_png/img22gd2_out_67_45_2.png
+python3 tif_to_png.py ../output/img22gd2_out_67_45_3.tif ../output_png/img22gd2_out_67_45_3.png
 
 
 python3 ImageSegmentation_display.py ../output/img22gd2_out_0_0_1.tif ../output_png/img22gd2_out_0_0_1.png

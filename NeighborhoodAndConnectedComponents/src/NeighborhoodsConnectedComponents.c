@@ -132,11 +132,11 @@ int main (int argc, char **argv)
 void error(char *name)
 {
 		printf("usage:	%s	image.tiff \n\n",name);
-		printf("this program reads in a 24-bit color TIFF image.\n");
-		printf("It then horizontally filters the the image,\n");
-		printf("using the specified filter type : \n");
-		printf("\t{1 : FIR_low_pass_filter, 2 : FIR_sharpening_filter ,3 : IIR Filter}\n");
-		printf("and generates an 8-bit color image,\n");
+		printf("this program reads in a greyscale 8-bit TIFF image.\n");
+		printf("It then scans the input image,\n");
+		printf("to find connected components \n");
+		printf("\t{1 : Connected Set, 2 : Image Segmentation }\n");
+		printf("and generates an 8-bit greyscale image,\n");
 		printf("that is saved in the output folder");
 		exit(1);
 }
