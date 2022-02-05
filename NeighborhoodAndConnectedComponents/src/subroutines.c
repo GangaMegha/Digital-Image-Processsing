@@ -145,12 +145,7 @@ void ImageSegmentation(double T, unsigned char **img, int width, int height, uns
 								seg[k][l] = 1;
 				}
 				else
-				{
 					ClassLabel++;
-					printf("%d", ClassLabel);
-				}
-
-
 			}
-
+	printf("\n\n\n Number of Regions :  %d\n\n\n\n", ClassLabel-1);
 }

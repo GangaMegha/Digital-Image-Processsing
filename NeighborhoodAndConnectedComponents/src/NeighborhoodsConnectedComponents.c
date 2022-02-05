@@ -65,84 +65,42 @@ int main (int argc, char **argv)
 
 	/* Get appropriate filter :
 			 1 : ConnectedSet
-			 2 : ImageSegmentation
-			 3 : IIR Filter						*/
+			 2 : ImageSegmentation				*/
 
-	get_TIFF(&out_img, input_img.height, input_img.width, 'c');	 
+  get_TIFF(&out_img, input_img.height, input_img.width, 'g');
 
-
-    // ClassLabel = 2;
-    // for(int i=0; i<input_img.height; i++)
-    //   for(int j=0; j<input_img.width; j++)
-    //     if(seg[i][j]==0)
-    //     {
-    //       s0.m = i;
-    //       s0.n = j;
-    //       NumConPixels = 0;
-    //       // printf("%d\n\n\n", *NumConPixels);
-
-    //       ConnectedSet(s0, T, input_img.mono, input_img.width, input_img.height, ClassLabel, seg, &NumConPixels);
-
-    //       if(NumConPixels<=100)
-    //       {
-    //         // Copy seg_tmp to seg
-    //         for(int k=0; k<input_img.height; k++)
-    //           for(int l=0; l<input_img.width; l++)
-    //             if(seg[k][l]==ClassLabel)
-    //               seg[k][l] = 1;
-    //       }
-    //       else
-    //       {
-    //         ClassLabel++;
-    //         printf("%d", ClassLabel);
-    //       }
-
-
-    //     }
 
 	switch(filter_type) {
 			 case 1 :
             ConnectedSet(s0, T, input_img.mono, input_img.width, input_img.height, ClassLabel, seg, &NumConPixels);
+            for (int i = 0; i < input_img.height; i++) 
+            {
+              for (int j = 0; j < input_img.width; j++) 
+              {
+                  if (seg[i][j] == ClassLabel) {
+                      out_img.mono[i][j] = 0;
+                  } else {
+                      out_img.mono[i][j] = 255;
+                  }
+              }
+            }
 					  break;
 			 case 2 :
             ImageSegmentation(T, input_img.mono, input_img.width, input_img.height, seg, &NumConPixels);
+            for (int i = 0; i < input_img.height; i++) 
+            {
+              for (int j = 0; j < input_img.width; j++) 
+              {
+                out_img.mono[i][j] = seg[i][j];
+              }
+            }
             break;    
 			 default :
 					 fprintf ( stderr, "error:	Invalid filter_type : value must be 1 or 2\n" );
 					 exit ( 1 );	 
 		}
 
-  get_TIFF(&out_img, input_img.height, input_img.width, 'g');
-
-  // for (int i = 0; i < input_img.height; i++) {
-  //     for (int j = 0; j < input_img.width; j++) {
-  //         if (seg[i][j] == ClassLabel) {
-  //             out_img.mono[i][j] = 0;
-  //         } else {
-  //             out_img.mono[i][j] = 255;
-  //         }
-  //     }
-  // }
-
-  for (int i = 0; i < input_img.height; i++) {
-    for (int j = 0; j < input_img.width; j++) {
-      out_img.mono[i][j] = seg[i][j];
-    }
-  }
-
   free_img((void *)seg);
-
-
-  // if ((fp = fopen("output-firlpf.tif", "wb")) == NULL) {
-  //     fprintf(stderr, "cannot open file output.tif\n");
-  //     exit(1);
-  // }
-
-  //  // write color image */
-  // if(write_TIFF(fp, &input_img)) {
-  //     fprintf(stderr, "error writing TIFF file %s\n", argv[2]);
-  //     exit(1);
-  // }
 
   outfile = argv[2];
 
