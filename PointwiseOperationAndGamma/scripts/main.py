@@ -13,7 +13,8 @@ def main(img_file, out_dir, choice):
 		stretch(img_file, out_dir, T1=70, T2=175)
 	elif choice=="gamma":
 		create_checkerboard_pattern(out_dir, 256, 256, gray=160, stripe=16, block=4)
-
+		display_gray_img(img_file, out_dir)
+		gamma_correct_img(img_file, out_dir, gamma=1.487)
 
 
 if __name__=="__main__":

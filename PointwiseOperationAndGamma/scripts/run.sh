@@ -8,5 +8,6 @@ python main.py kids.tif equilize
 # ------- Qn 3 : Contrast Stretching ----------
 python main.py kids.tif stretch
 
-# ------- Qn 3 : Gamma Correction ----------
-python main.py kids.tif gamma
+# ------- Qn 4 : Gamma Correction ----------
+python main.py linear.tif gamma 1.487
+python main.py gamma15.tif gamma 1.009

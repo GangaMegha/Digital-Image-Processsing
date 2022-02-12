@@ -96,3 +96,14 @@ def create_checkerboard_pattern(out_dir, h, w, gray=160, stripe=16, block=4):
 	plt.clf()
 	plt.imshow(img, cmap="gray")
 	plt.savefig(out_dir +"checkerboard.png")
+
+def gamma_correct_img(img_file, out_dir, gamma=1.487):
+	y = read_img(img_file)
+
+	# Gamma correction
+	x = 255 * ((y/255)**(1/gamma))
+
+	# Save Gamma corrected Image x
+	plt.clf()
+	plt.imshow(x, cmap="gray")
+	plt.savefig(out_dir + img_file.split("\\")[-1].strip(".tif")+"_gamma_corrected.png")
